@@ -5,9 +5,18 @@
 #include<vector>
 using namespace std;
 
-vector<int> matchingStrings(vector<string> strings, vector<string> queries) {
-
-
+vector<int> matchingStrings(vector<string> proby, vector<string> dane) {
+	
+	vector <int> wyniki(dane.size());
+	for (int j = 0; j < dane.size(); j++)
+	{
+		for (int i = 0; i < proby.size(); i++)
+		{
+			if (dane[j] == proby[i])
+				wyniki[j]++;
+		}
+	}
+	return wyniki;
 }
 
 

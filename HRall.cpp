@@ -2,29 +2,52 @@
 #include <iomanip>
 #include <limits>
 #include <string>
+#include<vector>
 using namespace std;
 
-using namespace std;
+vector<int> matchingStrings(vector<string> strings, vector<string> queries) {
+
+
+}
+
 
 int main() {
-	int i = 4;
-	double d = 4.0;
-	string s = "HackerRank ";
-	int cala;
-	double liczba;
-	string napis;
-	cin >> cala >> liczba;
-	getline(cin, napis);
-	cout << i + cala << endl;
-	cout.precision(1);
-	cout << fixed << d + liczba << endl;
-	cout << s + napis << endl;
-	// Print the sum of both integer variables on a new line.
+	int strings_count;
+	cin >> strings_count;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-	// Print the sum of the double variables on a new line.
+	vector<string> strings(strings_count);
 
-	// Concatenate and print the String variables on a new line
-	// The 's' variable above should be printed first.
+	for (int i = 0; i < strings_count; i++) {
+		string strings_item;
+		getline(cin, strings_item);
+
+		strings[i] = strings_item;
+	}
+
+	int queries_count;
+	cin >> queries_count;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+	vector<string> queries(queries_count);
+
+	for (int i = 0; i < queries_count; i++) {
+		string queries_item;
+		getline(cin, queries_item);
+
+		queries[i] = queries_item;
+	}
+
+	vector<int> res = matchingStrings(strings, queries);
+
+	for (int i = 0; i < res.size(); i++) {
+		cout << res[i];
+
+		if (i != res.size() - 1) {
+			cout << "\n";
+		}
+	}
+
 
 	return 0;
 }

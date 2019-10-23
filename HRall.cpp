@@ -5,63 +5,36 @@
 
 using namespace std;
 
-string ltrim(const string&);
-string rtrim(const string&);
-vector<string> split(const string&);
-
-/*
- * Complete the 'dynamicArray' function below.
- *
- * The function is expected to return an INTEGER_ARRAY.
- * The function accepts following parameters:
- *  1. INTEGER n
- *  2. 2D_INTEGER_ARRAY queries
- */
-
-vector<int> dynamicArray(int n, vector<vector<int>> queries) {
-
-}
-
 int main()
 {
-
-
-	string first_multiple_input_temp;
-	getline(cin, first_multiple_input_temp);
-
-	vector<string> first_multiple_input = split(rtrim(first_multiple_input_temp));
-
-	int n = stoi(first_multiple_input[0]);
-
-	int q = stoi(first_multiple_input[1]);
-
-	vector<vector<int>> queries(q);
-
-	for (int i = 0; i < q; i++) {
-		queries[i].resize(3);
-
-		string queries_row_temp_temp;
-		getline(cin, queries_row_temp_temp);
-
-		vector<string> queries_row_temp = split(rtrim(queries_row_temp_temp));
-
-		for (int j = 0; j < 3; j++) {
-			int queries_row_item = stoi(queries_row_temp[j]);
-
-			queries[i][j] = queries_row_item;
+	int max = 0;
+	int do_gory = 0;
+	int na_dol = 0;
+	int wielkosc;
+	cin >> wielkosc;
+	int *tablica =new int[wielkosc]; 
+	for (int i = 0; i < wielkosc; i++)
+	{
+		cin >> tablica[i];
+	}
+	max = tablica[0];
+	for (int i = 0; i < wielkosc; i++)
+	{
+		if (max < tablica[i])
+		{
+			max = tablica[i];
+			do_gory++;
 		}
 	}
-
-	vector<int> result = dynamicArray(n, queries);
-
-	for (int i = 0; i < result.size(); i++) {
-		cout << result[i];
-
-		if (i != result.size() - 1) {
-			cout << "\n";
+	max = tablica[0];
+	for (int i = 0; i < wielkosc; i++)
+	{
+		if (max > tablica[i])
+		{
+			max = tablica[i];
+			na_dol++;
 		}
 	}
-
-	cout << "\n";
-	return 0;
+	cout << do_gory << endl;
+	cout << na_dol << endl;
 }

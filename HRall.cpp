@@ -4,27 +4,25 @@ using namespace std;
 
 int main()
 {
-	int wielkosc_czekolady;
-	cin >> wielkosc_czekolady;
-	int* czekolada = new int[wielkosc_czekolady];
-	for (int i = 0; i < wielkosc_czekolady; i++)
-		cin >> czekolada[i];
-	int dzien_urodzin, miesiac_urodzin;
-	cin >> dzien_urodzin>>miesiac_urodzin;
+	int wielkosc, porownanie;
+	cin >> wielkosc>>porownanie;
+	int* tablica = new int[wielkosc];
+	for (int i = 0; i < wielkosc; i++)
+		cin >> tablica[i];
+
 	int ilosc_podzialow=0;
-	int suma=0;
-	int j = 0;
-	do
+	int suma = 0;
+	for (int j = 0; j<wielkosc; j++)
 	{
-		for (int i = 0; i < miesiac_urodzin; i++)
+		for (int i = 1; i < wielkosc-j; i++)
 		{
-			suma += czekolada[i+j];
+			suma = tablica[0+j] + tablica[i+j];
+			cout << suma << endl;
+			if (suma%porownanie==0)
+				ilosc_podzialow++;
 		}
-		if (suma == dzien_urodzin)
-			ilosc_podzialow++;
 		suma = 0;
-		j++;
-	} while (j !=wielkosc_czekolady - miesiac_urodzin+1);
+	}
 	
 		cout << ilosc_podzialow<<"iloscpodz";
 

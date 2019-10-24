@@ -4,29 +4,26 @@ using namespace std;
 
 int main()
 {
-	int wielkosc;
-	cin >> wielkosc;
-	int* tablica = new int[wielkosc];
-	for (int i = 0; i < wielkosc; i++)
-		cin >> tablica[i];
-
-	int suma[5] = { 0 };
-	int suma_max = 0;
-	for (int j = 0; j<5; j++)
+	int wielkosc_rachunku, numer_niezjedzony_przez_anne, dla_braiana;
+	cin >> wielkosc_rachunku >> numer_niezjedzony_przez_anne;
+	int* rachunek = new int[wielkosc_rachunku];
+	for (int i = 0; i < wielkosc_rachunku; i++)
+		cin >> rachunek[i];
+	cin >> dla_braiana;
+	int suma_anny=0;
+	for (int i = 0; i < wielkosc_rachunku; i++)
 	{
-		for (int i = 0; i < wielkosc; i++)
-		{
-			if (tablica[i] == j+1)
-				suma[j]++;
-		}
-		if (suma[j] > suma_max)
-			suma_max = suma[j];
+		suma_anny += rachunek[i];
+		if (i == numer_niezjedzony_przez_anne)
+			suma_anny -= rachunek[i];
 	}
-	for (int j = 0; j < 5; j++)
-		if (suma[j] == suma_max)
-		{
-			cout << j + 1;
-			break;
-		}
+	int wynik;
+	wynik = (dla_braiana - (suma_anny / 2));
+	if (wynik <= 0)
+		cout << "Bon Appetit";
+	else
+		cout << wynik;
+
+	delete[]rachunek;
 	return 0;
 }

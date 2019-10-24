@@ -4,28 +4,29 @@ using namespace std;
 
 int main()
 {
-	int wielkosc, porownanie;
-	cin >> wielkosc>>porownanie;
+	int wielkosc;
+	cin >> wielkosc;
 	int* tablica = new int[wielkosc];
 	for (int i = 0; i < wielkosc; i++)
 		cin >> tablica[i];
 
-	int ilosc_podzialow=0;
-	int suma = 0;
-	for (int j = 0; j<wielkosc; j++)
+	int suma[5] = { 0 };
+	int suma_max = 0;
+	for (int j = 0; j<5; j++)
 	{
-		for (int i = 1; i < wielkosc-j; i++)
+		for (int i = 0; i < wielkosc; i++)
 		{
-			suma = tablica[0+j] + tablica[i+j];
-			cout << suma << endl;
-			if (suma%porownanie==0)
-				ilosc_podzialow++;
+			if (tablica[i] == j+1)
+				suma[j]++;
 		}
-		suma = 0;
+		if (suma[j] > suma_max)
+			suma_max = suma[j];
 	}
-	
-		cout << ilosc_podzialow<<"iloscpodz";
-
-
+	for (int j = 0; j < 5; j++)
+		if (suma[j] == suma_max)
+		{
+			cout << j + 1;
+			break;
+		}
 	return 0;
 }

@@ -1,29 +1,30 @@
 ﻿#include <iostream>
-#include <cstdlib>
 using namespace std;
+
+int pageCount(int ilosc_stron, int szukana) {
+	int* ksiazka = new int[ilosc_stron];
+	int stron_od_poczatku = 0;
+	int stron_od_konca = ilosc_stron;
+	for (int i = 0; i < ilosc_stron; i++)
+		ksiazka[i] = i;
+	for (int i = 0; i < ilosc_stron; i++)
+	{
+		stron_od_poczatku++;
+		if (i == szukana)
+			break;
+	}
+	stron_od_konca = ilosc_stron - szukana;
+	cout << stron_od_poczatku << "od poczatku"<<endl;
+	cout << stron_od_konca << "od konca"<< endl;
+	if (stron_od_konca / 2 < stron_od_poczatku / 2)
+		return stron_od_konca;
+	return stron_od_poczatku/2;
+}
 
 int main()
 {
-	int wielkosc_rachunku, numer_niezjedzony_przez_anne, dla_braiana;
-	cin >> wielkosc_rachunku >> numer_niezjedzony_przez_anne;
-	int* rachunek = new int[wielkosc_rachunku];
-	for (int i = 0; i < wielkosc_rachunku; i++)
-		cin >> rachunek[i];
-	cin >> dla_braiana;
-	int suma_anny=0;
-	for (int i = 0; i < wielkosc_rachunku; i++)
-	{
-		suma_anny += rachunek[i];
-		if (i == numer_niezjedzony_przez_anne)
-			suma_anny -= rachunek[i];
-	}
-	int wynik;
-	wynik = (dla_braiana - (suma_anny / 2));
-	if (wynik <= 0)
-		cout << "Bon Appetit";
-	else
-		cout << wynik;
-
-	delete[]rachunek;
+	int ilosc_stron,szukana;
+	cin >> ilosc_stron >> szukana;
+	cout << pageCount(ilosc_stron, szukana);
 	return 0;
 }

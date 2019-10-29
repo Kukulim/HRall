@@ -1,77 +1,63 @@
-﻿#include <iostream>
+﻿#include <cmath>
+#include <cstdio>
 #include <vector>
-#include <map>
-#include <string>
+#include <iostream>
 #include <algorithm>
-#include <set>
-#include <cassert>
 using namespace std;
 
-struct Node {
-	Node* next;
-	Node* prev;
-	int value;
-	int key;
-	Node(Node* p, Node* n, int k, int val) :prev(p), next(n), key(k), value(val) {};
-	Node(int k, int val) :prev(NULL), next(NULL), key(k), value(val) {};
-};
-
-class Cache {
-
-protected:
-	map<int, Node*> mp; //map the key to the node in the linked list
-	int cp;  //capacity
-	Node* tail; // double linked list tail pointer
-	Node* head; // double linked list head pointer
-	virtual void set(int, int) = 0; //set function
-	virtual int get(int) = 0; //get function
-
-};
-class LRUCache :public Cache
-{
-public:
-	LRUCache(int cap);
-	~LRUCache();
-	virtual int get(int k)
-	{
-
-		
-	}
-	virtual void set(int k, int val)
-	{
-		
-	
-	}
-private:
-
-};
-
-LRUCache::LRUCache(int cap)
-{
-	cp = cap;
-}
-
-LRUCache::~LRUCache()
-{
-}
 
 int main() {
-	int n, capacity, i;
-	cin >> n >> capacity;
-	LRUCache l(capacity);
-	for (i = 0; i < n; i++) {
-		string command;
-		cin >> command;
-		if (command == "get") {
-			int key;
-			cin >> key;
-			cout << l.get(key) << endl;
+	vector<int>v;
+	int ilosc;
+	cin >> ilosc;
+	for (int i = 0; i <ilosc; i++)
+	{
+		int x;
+		cin >> x;
+		v.push_back(x);
+	}
+	vector<int>sprawdzenie;
+	int dlugosc_sprawdzenia;
+	cin >> dlugosc_sprawdzenia;
+	for (int i = 0; i < dlugosc_sprawdzenia; i++)
+	{
+		int x;
+		cin >> x;
+		sprawdzenie.push_back(x);
+	}
+	int suma_nie = 0;
+	int pozycja_nie = 0;
+	int buffor = 0;
+	int ktora_pozycja=0;
+	int j = 0;
+	for (int i = 0; i < dlugosc_sprawdzenia; i++)
+	{
+		for ( j = ilosc-1; j > -1; j--)
+		{
+			if (sprawdzenie[i] == v[j])
+			{
+				buffor = 1;
+				ktora_pozycja = j;
+				suma_nie++;
+			}
 		}
-		else if (command == "set") {
-			int key, value;
-			cin >> key >> value;
-			l.set(key, value);
+		if (buffor == 1)
+			cout << "Yes " << ktora_pozycja+1<<endl;
+		else if (suma_nie == 0 )
+		{
+				for (int k = 0; k < ilosc; k++)
+				{
+					if (sprawdzenie[i] < v[k]&&sprawdzenie[i]>v[k-1])
+					{
+						pozycja_nie = k;
+					}
+				}
+			cout << "No " << pozycja_nie +1<< endl;
 		}
+		buffor = 0;
+		ktora_pozycja = 0;
+		pozycja_nie = 0;
+		suma_nie = 0;
 	}
 	return 0;
 }

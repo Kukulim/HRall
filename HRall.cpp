@@ -1,113 +1,77 @@
-﻿#include <cmath>
-#include <cstdio>
+﻿#include <iostream>
 #include <vector>
-#include <iostream>
+#include <map>
+#include <string>
 #include <algorithm>
+#include <set>
+#include <cassert>
 using namespace std;
-int sutdent_id = 0;
-int professon_id = 0;
-class Person
-{
-public:
-	virtual void putdata() = 0;
-	virtual void getdata() = 0;
-private:
-};
-class Professor :public Person
-{
-public:
-	Professor();
-	~Professor();
-	virtual void getdata()
-	{
-		cin >> name >> age >> publikations;
-	}
-	virtual void putdata()
-	{
-		cout << name << " " << age << " " << publikations << " " << id<<endl;
-	}
-private:
-	string name;
-	int age;
-	int publikations;
-	int id;
+
+struct Node {
+	Node* next;
+	Node* prev;
+	int value;
+	int key;
+	Node(Node* p, Node* n, int k, int val) :prev(p), next(n), key(k), value(val) {};
+	Node(int k, int val) :prev(NULL), next(NULL), key(k), value(val) {};
 };
 
-Professor::Professor()
-{
-	id=++professon_id;
-}
+class Cache {
 
-Professor::~Professor()
-{
-}
-class Student :public Person
+protected:
+	map<int, Node*> mp; //map the key to the node in the linked list
+	int cp;  //capacity
+	Node* tail; // double linked list tail pointer
+	Node* head; // double linked list head pointer
+	virtual void set(int, int) = 0; //set function
+	virtual int get(int) = 0; //get function
+
+};
+class LRUCache :public Cache
 {
 public:
-	Student();
-	~Student();
-	virtual void getdata()
+	LRUCache(int cap);
+	~LRUCache();
+	virtual int get(int k)
 	{
-		cin >> name >> age;
-		for (int i = 0; i < 6; i++)
-		{
-			cin >> marks[i];
-		}
-	}
-	virtual void putdata()
-	{
-		cout << name << " " << age << " " << oblicz_sume_marks() << " " << id<<endl;
-	}
-	int oblicz_sume_marks()
-	{
-		int suma = 0;
-		for (int i = 0; i < 6; i++)
-		{
-			suma+= marks[i];
-		}
-		return suma;
 
+		
+	}
+	virtual void set(int k, int val)
+	{
+		
+	
 	}
 private:
-	string name;
-	int age;
-	int marks[6];
-	int id;
+
 };
 
-Student::Student()
+LRUCache::LRUCache(int cap)
 {
-	id = ++sutdent_id;
+	cp = cap;
 }
 
-Student::~Student()
+LRUCache::~LRUCache()
 {
 }
 
 int main() {
-
-	int n, val;
-	cin >> n;//The number of objects that is going to be created.
-	const int g = 4;
-	Person* per[g];
-
-	for (int i = 0; i < n; i++) {
-
-		cin >> val;
-		if (val == 1) {
-			// If val is 1 current object is of type Professor
-			per[i] = new Professor;
-
+	int n, capacity, i;
+	cin >> n >> capacity;
+	LRUCache l(capacity);
+	for (i = 0; i < n; i++) {
+		string command;
+		cin >> command;
+		if (command == "get") {
+			int key;
+			cin >> key;
+			cout << l.get(key) << endl;
 		}
-		else per[i] = new Student; // Else the current object is of type Student
-
-		per[i]->getdata(); // Get the data from the user.
-
+		else if (command == "set") {
+			int key, value;
+			cin >> key >> value;
+			l.set(key, value);
+		}
 	}
-
-	for (int i = 0; i < n; i++)
-		per[i]->putdata(); // Print the required output for each object.
-
 	return 0;
-
 }

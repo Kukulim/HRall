@@ -1,66 +1,118 @@
-﻿#include <iostream>
-#include <sstream>
-#include<string>
+﻿#include<iostream>
+
 using namespace std;
-
-
-class Student
+class Box
 {
 public:
-	Student();
-	~Student();
-	void input()
+	Box(int=0, int=0, int=0);
+	Box(const Box &BBox);
+	~Box();
+	int getLength()
 	{
-		for (int i = 0; i < 5; i++)
-		{
-			cin >> score[i];
-		}
+		return dlugosc;
 	}
-	int calculateTotalScore()
+	int getBreadth()
 	{
-		for (int i = 0; i < 5; i++)
-		{
-			suma += score[i];
-		}
+		return glebokosc;
+	}
+	int getHeight()
+	{
+		return wysokosc;
+	}
+	long long CalculateVolume()
+	{
+		long long suma = 0;
+		suma = (long long)dlugosc * (long long)glebokosc * (long long)wysokosc;
+		
 		return suma;
 	}
+	friend ostream& operator<<(ostream& out, const Box& B);
+	bool operator<(Box& B)
+	{
+		if ((this->dlugosc < B.dlugosc) || ((this->wysokosc < B.wysokosc) && (this->dlugosc == B.dlugosc)) || ((this->wysokosc < B.wysokosc) && (this->dlugosc == B.dlugosc) && (this->wysokosc == B.wysokosc)))
+			return true;
+		else
+			return false;
+	}
+
 private:
-	int score[5] = { 0 };
-	int suma=0;
-	
+	int dlugosc;
+	int glebokosc;
+	int wysokosc;
 };
+ostream& operator<<(ostream& out, const Box& B)
+{
+	return out << B.dlugosc << " " << B.glebokosc << " " << B.wysokosc;
+}
 
-Student::Student()
+
+
+Box::Box(int a,int b, int c)
+{
+	dlugosc = a;
+	glebokosc = b;
+	wysokosc = c;
+}
+Box::Box(const Box &BBox)
+{
+	dlugosc = BBox.dlugosc;
+	glebokosc = BBox.glebokosc;
+	wysokosc = BBox.wysokosc;
+}
+
+Box::~Box()
 {
 }
 
-Student::~Student()
+void check2()
 {
-}
-
-int main() {
-	int n; // number of students
+	int n;
 	cin >> n;
-	Student* s = new Student[n]; // an array of n students
-
-	for (int i = 0; i < n; i++) {
-		s[i].input();
-	}
-
-	// calculate kristen's score
-	int kristen_score = s[0].calculateTotalScore();
-
-	// determine how many students scored higher than kristen
-	int count = 0;
-	for (int i = 1; i < n; i++) {
-		int total = s[i].calculateTotalScore();
-		if (total > kristen_score) {
-			count++;
+	Box temp;
+	for (int i = 0; i < n; i++)
+	{
+		int type;
+		cin >> type;
+		if (type == 1)
+		{
+			cout << temp << endl;
 		}
+		if (type == 2)
+		{
+			int l, b, h;
+			cin >> l >> b >> h;
+			Box NewBox(l, b, h);
+			temp = NewBox;
+			cout << temp << endl;
+		}
+		if (type == 3)
+		{
+			int l, b, h;
+			cin >> l >> b >> h;
+			Box NewBox(l, b, h);
+			if (NewBox < temp)
+			{
+				cout << "Lesser\n";
+			}
+			else
+			{
+				cout << "Greater\n";
+			}
+		}
+		if (type == 4)
+		{
+			cout << temp.CalculateVolume() << endl;
+		}
+		if (type == 5)
+		{
+			Box NewBox(temp);
+			cout << NewBox << endl;
+		}
+
 	}
+}
 
-	// print result
-	cout << count;
-
-	return 0;
+int main()
+{
+	check2();
 }

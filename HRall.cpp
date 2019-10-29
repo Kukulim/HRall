@@ -1,25 +1,66 @@
-﻿#include <cmath>
-#include <cstdio>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-#include <string>
+﻿#include <iostream>
+#include <sstream>
+#include<string>
 using namespace std;
 
 
-int main() {
-	int lini_kodu,prob;
-	cin >> lini_kodu,prob;
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-	string* tabela = new string[lini_kodu];
-	for (int i = 0; i <lini_kodu; i++)
+class Student
+{
+public:
+	Student();
+	~Student();
+	void input()
 	{
-		getline(cin, tabela[i]);
+		for (int i = 0; i < 5; i++)
+		{
+			cin >> score[i];
+		}
+	}
+	int calculateTotalScore()
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			suma += score[i];
+		}
+		return suma;
+	}
+private:
+	int score[5] = { 0 };
+	int suma=0;
+	
+};
+
+Student::Student()
+{
+}
+
+Student::~Student()
+{
+}
+
+int main() {
+	int n; // number of students
+	cin >> n;
+	Student* s = new Student[n]; // an array of n students
+
+	for (int i = 0; i < n; i++) {
+		s[i].input();
 	}
 
+	// calculate kristen's score
+	int kristen_score = s[0].calculateTotalScore();
 
+	// determine how many students scored higher than kristen
+	int count = 0;
+	for (int i = 1; i < n; i++) {
+		int total = s[i].calculateTotalScore();
+		if (total > kristen_score) {
+			count++;
+		}
+	}
 
+	// print result
+	cout << count;
 
 	return 0;
 }

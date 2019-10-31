@@ -3,46 +3,53 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <cassert>
 using namespace std;
 
+template <class T>
+class AddElements {
+	T element1;
+	T element2;
+public:
+	AddElements(T arg)
+	{
+		element1 = arg;
+		
+	}
+	T add(T liczba)
+	{
+		return element1+liczba;
+	}
+	T concatenate(T napis)
+	{
+		return element1 += napis;
+	}
+};
 
 int main() {
-	vector<int>v;
-	int ilosc;
-	cin >> ilosc;
-	for (int i = 0; i <ilosc; i++)
-	{
-		int x;
-		cin >> x;
-		v.push_back(x);
-	}
-	vector<int>sprawdzenie;
-	int dlugosc_sprawdzenia;
-	cin >> dlugosc_sprawdzenia;
-	for (int i = 0; i < dlugosc_sprawdzenia; i++)
-	{
-		int x;
-		cin >> x;
-		sprawdzenie.push_back(x);
-	}
-
-	for (int i = 0; i < dlugosc_sprawdzenia; i++)
-	{
-		for (int j = 0; j < ilosc; j++)
-		{
-			if (sprawdzenie[i] == v[j])
-			{
-				cout << "Yes " << j+1<<endl;
-				break;
-			}
-			else
-			{
-					if (sprawdzenie[i] < v[j] && sprawdzenie[i]>v[j - 1])
-					{
-						cout << "No " << j + 1 << endl;
-						break;
-					}	
-			}
+	ios_base::sync_with_stdio(false);
+	int n, i;
+	cin >> n;
+	for (i = 0; i < n; i++) {
+		string type;
+		cin >> type;
+		if (type == "float") {
+			double element1, element2;
+			cin >> element1 >> element2;
+			AddElements<double> myfloat(element1);
+			cout << myfloat.add(element2) << endl;
+		}
+		else if (type == "int") {
+			int element1, element2;
+			cin >> element1 >> element2;
+			AddElements<int> myint(element1);
+			cout << myint.add(element2) << endl;
+		}
+		else if (type == "string") {
+			string element1, element2;
+			cin >> element1 >> element2;
+			AddElements<string> mystring(element1);
+			cout << mystring.concatenate(element2) << endl;
 		}
 	}
 	return 0;

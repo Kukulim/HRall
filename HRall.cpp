@@ -25,39 +25,25 @@ int main() {
 		cin >> x;
 		sprawdzenie.push_back(x);
 	}
-	int suma_nie = 0;
-	int pozycja_nie = 0;
-	int buffor = 0;
-	int ktora_pozycja=0;
-	int j = 0;
+
 	for (int i = 0; i < dlugosc_sprawdzenia; i++)
 	{
-		for ( j = ilosc-1; j > -1; j--)
+		for (int j = 0; j < ilosc; j++)
 		{
 			if (sprawdzenie[i] == v[j])
 			{
-				buffor = 1;
-				ktora_pozycja = j;
-				suma_nie++;
+				cout << "Yes " << j+1<<endl;
+				break;
+			}
+			else
+			{
+					if (sprawdzenie[i] < v[j] && sprawdzenie[i]>v[j - 1])
+					{
+						cout << "No " << j + 1 << endl;
+						break;
+					}	
 			}
 		}
-		if (buffor == 1)
-			cout << "Yes " << ktora_pozycja+1<<endl;
-		else if (suma_nie == 0 )
-		{
-				for (int k = 0; k < ilosc; k++)
-				{
-					if (sprawdzenie[i] < v[k]&&sprawdzenie[i]>v[k-1])
-					{
-						pozycja_nie = k;
-					}
-				}
-			cout << "No " << pozycja_nie +1<< endl;
-		}
-		buffor = 0;
-		ktora_pozycja = 0;
-		pozycja_nie = 0;
-		suma_nie = 0;
 	}
 	return 0;
 }

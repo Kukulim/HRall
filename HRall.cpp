@@ -1,51 +1,60 @@
 ﻿#include <iostream>
-#include<vector>
 
 using namespace std;
-
-int hourglassSum(vector<vector<int>> arr)
+/*
+ * Create classes Rectangle and RectangleArea
+ */
+class Rectangle
 {
-	int suma[16] = { 0 };
-	int p = 0;
-	int suma_max=0;
-	int j = 0;
-	for (int w = 0; w < 4;w++)
+public:
+
+	void display()
 	{
-		for (int k = 0; k < 4; k++)
-		{
-			for (int i = 0 + k; i < 3 + k; i++)
-			{
-				suma[p] += arr[j + w][i];
-				suma[p] += arr[j + 2 +w][i];
-			}
-			suma[p] += arr[1 + w][1 + k];
-			p++;
-		}
+		cout << wysokosc << " " << szerokosc;
 	}
-	suma_max = suma[0];
-	for(int i=0;i<16;i++)
-		if(suma_max<suma[i])
-			suma_max=suma[i];
+protected:
+	int wysokosc;
+	int szerokosc;
 
-	return suma_max;
+};
+class RectangleArea :public Rectangle
+{
+public:
 
-}
+	void read_input()
+	{
+		cin >> wysokosc >> szerokosc;
+	}
+	void display() const
+	{
+		cout << wysokosc * szerokosc;
+	}
+private:
+	
+
+};
 
 int main()
 {
+	/*
+	 * Declare a RectangleArea object
+	 */
+	RectangleArea r_area;
 
-	vector<vector<int>> arr(6);
-	for (int i = 0; i < 6; i++) {
-		arr[i].resize(6);
+	/*
+	 * Read the width and height
+	 */
+	r_area.read_input();
 
-		for (int j = 0; j < 6; j++) {
-			cin >> arr[i][j];
-		}
-	}
+	/*
+	 * Print the width and height
+	 */
+	r_area.Rectangle::display();
 
-	int result = hourglassSum(arr);
-
-	cout << result << "\n";
+	/*
+	 * Print the area
+	 */
+	r_area.display();
 
 	return 0;
 }

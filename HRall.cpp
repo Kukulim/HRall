@@ -7,31 +7,42 @@
 #include <map>
 using namespace std;
 
+int main() {
 
-
-	int main() {
-		int iCount;
-		map<string, int> maps;
-		std::map<string, int>::iterator it;
-		cin >> iCount;
-		for (int i = 0; i < iCount; ++i) {
-			string name;
-			int type,ocena;
-			cin >> type >> name>>ocena;
-			switch (type) {
-			case 1:
-				maps.insert(make_pair(name, ocena));
-				break;
-			case 2:
-				it = maps.find(name);
-				maps.erase(it);
-				break;
-			case 3:
-				it = maps.find(name);
-				cout << it->first << it->second;
-				break;
-			}
+	map<string, int> mapeczka;
+	std::map<string, int>::iterator it;
+	string name;
+	int ocena,znacznikX,kolejki;
+	cin >> kolejki;
+	for (int i = 0; i < kolejki; i++)
+	{
+		cin >> znacznikX;
+		switch (znacznikX)
+		{
+		case 1:
+			cin >> name >> ocena;
+			it = mapeczka.find(name);
+			if (it != mapeczka.end())
+				it->second += ocena;
+			else
+				mapeczka.insert(pair<string, int>(name, ocena));
+			break;
+		case 2:
+			cin >> name;
+			it = mapeczka.find(name);
+			if (it != mapeczka.end())
+				mapeczka.erase(it);
+			break;
+		case 3:
+			cin >> name;
+			it = mapeczka.find(name);
+			if (it != mapeczka.end())
+				cout << it->second << endl;
+			else
+				cout << "0" << endl;
+			break;
 		}
-		return 0;
 	}
+	return 0;
+}
 

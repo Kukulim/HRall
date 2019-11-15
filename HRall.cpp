@@ -21,11 +21,7 @@ int main() {
 		{
 		case 1:
 			cin >> name >> ocena;
-			it = mapeczka.find(name);
-			if (it != mapeczka.end())
-				it->second += ocena;
-			else
-				mapeczka.insert(pair<string, int>(name, ocena));
+			mapeczka[name] += ocena;
 			break;
 		case 2:
 			cin >> name;

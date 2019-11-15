@@ -4,26 +4,31 @@
 #include <iostream>
 #include <set>
 #include <algorithm>
+#include <map>
 using namespace std;
 
 
 
 	int main() {
 		int iCount;
-		set<int> ss;
+		map<string, int> maps;
+		std::map<string, int>::iterator it;
 		cin >> iCount;
 		for (int i = 0; i < iCount; ++i) {
-			int type, query;
-			cin >> type >> query;
+			string name;
+			int type,ocena;
+			cin >> type >> name>>ocena;
 			switch (type) {
 			case 1:
-				ss.insert(query);
+				maps.insert(make_pair(name, ocena));
 				break;
 			case 2:
-				ss.erase(query);
+				it = maps.find(name);
+				maps.erase(it);
 				break;
 			case 3:
-				cout << (ss.find(query) == ss.end() ? "No" : "Yes") << endl;
+				it = maps.find(name);
+				cout << it->first << it->second;
 				break;
 			}
 		}

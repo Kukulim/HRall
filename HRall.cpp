@@ -1,44 +1,33 @@
-﻿#include <cmath>
-#include <cstdio>
-#include <vector>
+﻿#define INF 1000000000
+#define FUNCTION(name,operator) inline void name(int &current, int candidate) {!(current operator candidate) ? current = candidate : false;}
+#define io(v) cin>>v
+#define toStr(str) #str
+#define foreach(v, i) for (int i = 0; i < v.size(); ++i)
 #include <iostream>
-#include <set>
-#include <algorithm>
-#include <map>
+#include <vector>
 using namespace std;
 
-int main() {
+#if !defined toStr || !defined io || !defined FUNCTION || !defined INF
+#error Missing preprocessor definitions
+#endif 
 
-	map<string, int> mapeczka;
-	std::map<string, int>::iterator it;
-	string name;
-	int ocena,znacznikX,kolejki;
-	cin >> kolejki;
-	for (int i = 0; i < kolejki; i++)
-	{
-		cin >> znacznikX;
-		switch (znacznikX)
-		{
-		case 1:
-			cin >> name >> ocena;
-			mapeczka[name] += ocena;
-			break;
-		case 2:
-			cin >> name;
-			it = mapeczka.find(name);
-			if (it != mapeczka.end())
-				mapeczka.erase(it);
-			break;
-		case 3:
-			cin >> name;
-			it = mapeczka.find(name);
-			if (it != mapeczka.end())
-				cout << it->second << endl;
-			else
-				cout << "0" << endl;
-			break;
-		}
+FUNCTION(minimum, < )
+	FUNCTION(maximum, > )
+
+	int main() {
+	int n; cin >> n;
+	vector<int> v(n);
+	foreach(v, i) {
+		io(v)[i];
 	}
+	int mn = INF;
+	int mx = -INF;
+	foreach(v, i) {
+		minimum(mn, v[i]);
+		maximum(mx, v[i]);
+	}
+	int ans = mx - mn;
+	cout << toStr(Result = ) << ' ' << ans;
 	return 0;
-}
 
+}

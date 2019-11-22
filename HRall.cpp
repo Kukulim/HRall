@@ -1,66 +1,70 @@
-﻿#include <iostream>
-#include <sstream>
-#include<string>
+﻿#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
 using namespace std;
 
-
-class Student
+class Matrix
 {
 public:
-	Student();
-	~Student();
-	void input()
-	{
-		for (int i = 0; i < 5; i++)
-		{
-			cin >> score[i];
-		}
-	}
-	int calculateTotalScore()
-	{
-		for (int i = 0; i < 5; i++)
-		{
-			suma += score[i];
-		}
-		return suma;
-	}
-private:
-	int score[5] = { 0 };
-	int suma=0;
-	
+	Matrix() {}
+	vector<vector<int>> a;
+	//Matrix operator +(const Matrix& d)
+	//{
+	//	Matrix wynik;
+	//	for (int i = 0; i < (d.a.size()); i++) {
+	//		for (int j = 0; j < (this->a.size()); j++) {
+	//			wynik.a[i][j] = this->a[i][j] + d.a[i][j];
+	//		}
+	//	}
+	//	return wynik;
+	//}
 };
-
-Student::Student()
-{
-}
-
-Student::~Student()
-{
-}
+	Matrix operator +(const Matrix& d, const Matrix& e)
+	{
+		Matrix wynik;
+		for (int i = 0; i < (d.a.size()); i++) {
+			for (int j = 0; j < (e.a.size()); j++) {
+				wynik.a[i][j] = e.a[i][j] + d.a[i][j];
+			}
+		}
+		return wynik;
+	}
 
 int main() {
-	int n; // number of students
-	cin >> n;
-	Student* s = new Student[n]; // an array of n students
-
-	for (int i = 0; i < n; i++) {
-		s[i].input();
-	}
-
-	// calculate kristen's score
-	int kristen_score = s[0].calculateTotalScore();
-
-	// determine how many students scored higher than kristen
-	int count = 0;
-	for (int i = 1; i < n; i++) {
-		int total = s[i].calculateTotalScore();
-		if (total > kristen_score) {
-			count++;
+	int cases, k;
+	cin >> cases;
+	for (k = 0; k < cases; k++) {
+		Matrix x;
+		Matrix y;
+		Matrix result;
+		int n, m, i, j;
+		cin >> n >> m;
+		for (i = 0; i < n; i++) {
+			vector<int> b;
+			int num;
+			for (j = 0; j < m; j++) {
+				cin >> num;
+				b.push_back(num);
+			}
+			x.a.push_back(b);
+		}
+		for (i = 0; i < n; i++) {
+			vector<int> b;
+			int num;
+			for (j = 0; j < m; j++) {
+				cin >> num;
+				b.push_back(num);
+			}
+			y.a.push_back(b);
+		}
+		result = x + y;
+		for (i = 0; i < n; i++) {
+			for (j = 0; j < m; j++) {
+				cout << result.a[i][j] << " ";
+			}
+			cout << endl;
 		}
 	}
-
-	// print result
-	cout << count;
-
 	return 0;
 }

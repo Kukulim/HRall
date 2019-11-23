@@ -9,22 +9,15 @@ class Matrix
 public:
 	Matrix() {}
 	vector<vector<int>> a;
-	//Matrix operator +(const Matrix& d)
-	//{
-	//	Matrix wynik;
-	//	for (int i = 0; i < (d.a.size()); i++) {
-	//		for (int j = 0; j < (this->a.size()); j++) {
-	//			wynik.a[i][j] = this->a[i][j] + d.a[i][j];
-	//		}
-	//	}
-	//	return wynik;
-	//}
 };
 	Matrix operator +(const Matrix& d, const Matrix& e)
 	{
 		Matrix wynik;
-		for (int i = 0; i < (d.a.size()); i++) {
-			for (int j = 0; j < (e.a.size()); j++) {
+		int n = d.a.size();
+		int	m = d.a[0].size();
+		wynik.a.resize(n, vector<int>(m));
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
 				wynik.a[i][j] = e.a[i][j] + d.a[i][j];
 			}
 		}

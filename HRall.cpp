@@ -24,6 +24,7 @@ public:
 		return wynik;
 	}
 
+
 int main() {
 	int cases, k;
 	cin >> cases;

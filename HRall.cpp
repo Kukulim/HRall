@@ -1,64 +1,28 @@
-﻿#include <cstdio>
-#include <vector>
-#include <iostream>
-#include <algorithm>
+﻿#include <iostream>
+
 using namespace std;
 
-class Matrix
-{
+class Person {
 public:
-	Matrix() {}
-	vector<vector<int>> a;
-};
-	Matrix operator +(const Matrix& d, const Matrix& e)
-	{
-		Matrix wynik;
-		int n = d.a.size();
-		int	m = d.a[0].size();
-		wynik.a.resize(n, vector<int>(m));
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
-				wynik.a[i][j] = e.a[i][j] + d.a[i][j];
-			}
-		}
-		return wynik;
+	Person(const string& first_name, const string& last_name) : first_name_(first_name), last_name_(last_name) {}
+	const string& get_first_name() const {
+		return first_name_;
 	}
-
+	const string& get_last_name() const {
+		return last_name_;
+	}
+private:
+	string first_name_;
+	string last_name_;
+};
+ostream& operator<< (ostream& wyjscie, const Person& s) {
+	return wyjscie << "first_name=" << s.get_first_name() << "last_name=" << s.get_last_name() << endl;
+}
 
 int main() {
-	int cases, k;
-	cin >> cases;
-	for (k = 0; k < cases; k++) {
-		Matrix x;
-		Matrix y;
-		Matrix result;
-		int n, m, i, j;
-		cin >> n >> m;
-		for (i = 0; i < n; i++) {
-			vector<int> b;
-			int num;
-			for (j = 0; j < m; j++) {
-				cin >> num;
-				b.push_back(num);
-			}
-			x.a.push_back(b);
-		}
-		for (i = 0; i < n; i++) {
-			vector<int> b;
-			int num;
-			for (j = 0; j < m; j++) {
-				cin >> num;
-				b.push_back(num);
-			}
-			y.a.push_back(b);
-		}
-		result = x + y;
-		for (i = 0; i < n; i++) {
-			for (j = 0; j < m; j++) {
-				cout << result.a[i][j] << " ";
-			}
-			cout << endl;
-		}
-	}
+	string first_name, last_name, event;
+	cin >> first_name >> last_name >> event;
+	auto p = Person(first_name, last_name);
+	cout << p << " " << event << endl;
 	return 0;
 }

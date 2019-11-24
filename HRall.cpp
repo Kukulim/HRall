@@ -1,28 +1,44 @@
 ﻿#include <iostream>
-
 using namespace std;
+enum class Fruit { apple, orange, pear };
+enum class Color { red, green, orange };
 
-class Person {
-public:
-	Person(const string& first_name, const string& last_name) : first_name_(first_name), last_name_(last_name) {}
-	const string& get_first_name() const {
-		return first_name_;
-	}
-	const string& get_last_name() const {
-		return last_name_;
-	}
-private:
-	string first_name_;
-	string last_name_;
+template <typename T> struct Traits;
+template <> 
+struct Traits<Fruit>{
+    static string name(int index){
+        switch(index){
+                case 0:return "apple";
+                case 1: return "orange" ;
+                case 2: return "pear";
+        }  
+        return "unknown";
+    } 
 };
-ostream& operator<< (ostream& wyjscie, const Person& s) {
-	return wyjscie << "first_name=" << s.get_first_name() << "last_name=" << s.get_last_name() << endl;
-}
+template <> 
+struct Traits<Color>{
+    static string name(int index){
+        switch(index){
+                case 0:return "red";
+                case 1: return "green" ;
+                case 2: return "orange";           
+        }
+        return "unknown";  
+    } 
+};
 
-int main() {
-	string first_name, last_name, event;
-	cin >> first_name >> last_name >> event;
-	auto p = Person(first_name, last_name);
-	cout << p << " " << event << endl;
-	return 0;
+
+// Define specializations for the Traits class template here.
+
+
+int main()
+{
+	int t = 0; std::cin >> t;
+
+	for (int i = 0; i != t; ++i) {
+		int index1; std::cin >> index1;
+		int index2; std::cin >> index2;
+		cout << Traits<Color>::name(index1) << " ";
+		cout << Traits<Fruit>::name(index2) << "\n";
+	}
 }

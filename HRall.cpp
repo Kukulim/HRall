@@ -1,58 +1,41 @@
 ﻿#include <iostream>
-#include <vector>
+#include <stdexcept>
 
 using namespace std;
 
-class HotelRoom {
-public:
-	HotelRoom(int bedrooms, int bathrooms)
-		: bedrooms_(bedrooms), bathrooms_(bathrooms) {}
-
-	int virtual get_price() {
-		return 50 * bedrooms_ + 100 * bathrooms_;
+int largest_proper_divisor(int n) {
+	
+	if (n == 0) {
+		throw invalid_argument("largest proper divisor is not defined for n=0");
 	}
-private:
-	int bedrooms_;
-	int bathrooms_;
-};
-
-class HotelApartment : public HotelRoom {
-public:
-	HotelApartment(int bedrooms, int bathrooms)
-		: HotelRoom(bedrooms, bathrooms) {}
-
-	int get_price() {
-		return HotelRoom::get_price() + 100;
+	if (n == 1) {
+		throw invalid_argument("largest proper divisor is not defined for n=1");
 	}
-};
+	for (int i = n / 2; i >= 1; --i) {
+		if (n % i == 0) {
+			return i;
+		}
+	}
+	return -1; // will never happen
+}
+
+void process_input(int n) {
+	try { 
+		int d = largest_proper_divisor(n); 
+		cout << "result=" << d << endl;
+		cout << "returning control flow to caller";
+	}
+	
+	catch (const std::invalid_argument & ia) {
+		cout<< ia.what() << '\n';
+		cout << "returning control flow to caller";
+	}
+}
+
 
 int main() {
 	int n;
 	cin >> n;
-	vector<HotelRoom*> rooms;
-	for (int i = 0; i < n; ++i) {
-		string room_type;
-		int bedrooms;
-		int bathrooms;
-		cin >> room_type >> bedrooms >> bathrooms;
-		if (room_type == "standard") {
-			rooms.push_back(new HotelRoom(bedrooms, bathrooms));
-		}
-		else {
-			rooms.push_back(new HotelApartment(bedrooms, bathrooms));
-		}
-	}
-
-	int total_profit = 0;
-	for (auto room : rooms) {
-		total_profit += room->get_price();
-	}
-	cout << total_profit << endl;
-
-	for (auto room : rooms) {
-		delete room;
-	}
-	rooms.clear();
-
+	process_input(n);
 	return 0;
 }

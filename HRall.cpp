@@ -1,44 +1,58 @@
 ﻿#include <iostream>
+#include <vector>
+
 using namespace std;
-enum class Fruit { apple, orange, pear };
-enum class Color { red, green, orange };
 
-template <typename T> struct Traits;
-template <> 
-struct Traits<Fruit>{
-    static string name(int index){
-        switch(index){
-                case 0:return "apple";
-                case 1: return "orange" ;
-                case 2: return "pear";
-        }  
-        return "unknown";
-    } 
-};
-template <> 
-struct Traits<Color>{
-    static string name(int index){
-        switch(index){
-                case 0:return "red";
-                case 1: return "green" ;
-                case 2: return "orange";           
-        }
-        return "unknown";  
-    } 
-};
+class HotelRoom {
+public:
+	HotelRoom(int bedrooms, int bathrooms)
+		: bedrooms_(bedrooms), bathrooms_(bathrooms) {}
 
-
-// Define specializations for the Traits class template here.
-
-
-int main()
-{
-	int t = 0; std::cin >> t;
-
-	for (int i = 0; i != t; ++i) {
-		int index1; std::cin >> index1;
-		int index2; std::cin >> index2;
-		cout << Traits<Color>::name(index1) << " ";
-		cout << Traits<Fruit>::name(index2) << "\n";
+	int virtual get_price() {
+		return 50 * bedrooms_ + 100 * bathrooms_;
 	}
+private:
+	int bedrooms_;
+	int bathrooms_;
+};
+
+class HotelApartment : public HotelRoom {
+public:
+	HotelApartment(int bedrooms, int bathrooms)
+		: HotelRoom(bedrooms, bathrooms) {}
+
+	int get_price() {
+		return HotelRoom::get_price() + 100;
+	}
+};
+
+int main() {
+	int n;
+	cin >> n;
+	vector<HotelRoom*> rooms;
+	for (int i = 0; i < n; ++i) {
+		string room_type;
+		int bedrooms;
+		int bathrooms;
+		cin >> room_type >> bedrooms >> bathrooms;
+		if (room_type == "standard") {
+			rooms.push_back(new HotelRoom(bedrooms, bathrooms));
+		}
+		else {
+			rooms.push_back(new HotelApartment(bedrooms, bathrooms));
+		}
+	}
+
+	int total_profit = 0;
+	for (auto room : rooms) {
+		total_profit += room->get_price();
+	}
+	cout << total_profit << endl;
+
+	for (auto room : rooms) {
+		delete room;
+	}
+	rooms.clear();
+
+	return 0;
 }
